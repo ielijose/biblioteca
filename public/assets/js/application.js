@@ -30,7 +30,7 @@ Modernizr.addTest('retina', function () {
 
 Modernizr.load([{
     test: Modernizr.retina,
-    yep: 'assets/plugins/retina.js'
+    yep: '/assets/plugins/retina.js'
 }]);
 
 
@@ -241,7 +241,7 @@ function chatSidebar() {
             var chat_message = '<li class="img">' +
                 '<span>' +
                 '<div class="chat-detail chat-right">' +
-                '<img src="assets/img/avatars/avatar1.png" data-retina-src="assets/img/avatars/avatar1_2x.png"/>' +
+                '<img src="/assets/img/avatars/avatar1.png" data-retina-src="assets/img/avatars/avatar1_2x.png"/>' +
                 '<div class="chat-detail">' +
                 '<div class="chat-bubble">' +
                 $(this).val() +
@@ -290,10 +290,10 @@ $('.theme-color').click(function (e) {
 /* If skin color selected in menu, we display it */
 if($.cookie('style-color')){
     var color_ = 'color-'+$.cookie('style-color');
-    $('#theme-color').attr("href", "/assets/css/colors/" + color_ + ".css");
+    $('#theme-color').attr("href", "/backend/assets/css/colors/" + color_ + ".css");
 }
 else{
-    $('#theme-color').attr("href", "/assets/css/colors/color-dark.css");
+    $('#theme-color').attr("href", "/backend/assets/css/colors/color-dark.css");
 }
 
 //*********************************** CUSTOM FUNCTIONS *****************************//
@@ -390,13 +390,14 @@ if ($('.animate-number').length && $.fn.numerator) {
 
 /****  Custom Select Input  ****/
 if ($('select').length && $.fn.selectpicker) {
-  setTimeout(function(){
-    $('select').selectpicker();
-  },50);
+    if(!$(this).data('noselect')=='noselect'){
+        $('select').selectpicker();    
+    }    
 }
+
 /****  Show Tooltip  ****/
-if ($('[data-rel="tooltip"]').length && $.fn.tooltip) {
-    $('[data-rel="tooltip"]').tooltip();
+if ($('[rel="tooltip"]').length && $.fn.tooltip) {
+    $('[rel="tooltip"]').tooltip();
 }
 
 /****  Show Popover  ****/
@@ -413,7 +414,7 @@ if ($('[data-hover="dropdown"]').length && $.fn.popover) {
 }
 
 /****  Add to favorite  ****/
-$('.favorite').on('click', function () {
+$('.favoriate').on('click', function () {
     ($(this).hasClass('btn-default')) ? $(this).removeClass('btn-default').addClass('btn-danger') : $(this).removeClass('btn-danger').addClass('btn-default');
 });
 
@@ -431,27 +432,23 @@ $('.toggle_checkbox').on('click', function () {
     } else {
         $(this).closest('#task-manager').find('input:checkbox').prop('checked', false);
     }
+
 });
 
 
 /****  Form Validation with Icons  ****/
 if ($('.icon-validation').length && $.fn.parsley) {
-
     $('.icon-validation').each(function () {
-
-        icon_validation = $(this);
-
-        $(this).parsley().subscribe('parsley:field:success', function (formInstance) {
-
-           formInstance.$element.prev().removeClass('fa-exclamation c-red').addClass('fa-check c-green');
-           
+        $(this).parsley({
+            listeners: {
+                onFieldSuccess: function (elem, constraints) {
+                    elem.prev().removeClass('fa-exclamation c-red').addClass('fa-check c-green');
+                },
+                onFieldError: function (elem, constraints) {
+                    elem.prev().removeClass('fa-check c-green').addClass('fa-exclamation c-red');
+                }
+            }
         });
-        $(this).parsley().subscribe('parsley:field:error', function (formInstance) {
-
-            formInstance.$element.prev().removeClass('fa-check c-green').addClass('fa-exclamation c-red');
-            
-        });
-
     });
 }
 
@@ -494,8 +491,6 @@ if ($('.datepicker').length && $.fn.datepicker) {
         $(this).datepicker({
             inline: datepicker_inline
         });
-
-        $(this).datepicker('setDate', new Date());
     });
 }
 
@@ -513,6 +508,7 @@ if ($('.datetimepicker').length && $.fn.datetimepicker) {
 if ($('.pickadate').length && $.fn.pickadate) {
     $('.pickadate').each(function () {
         $(this).pickadate();
+        $(this).css("z-index", 999999999);
     });
 }
 
@@ -618,13 +614,15 @@ if ($('.cke-editor').length && $.fn.ckeditor) {
 /****  Tables Dynamic  ****/
 if ($('.table-dynamic').length && $.fn.dataTable) {
     $('.table-dynamic').each(function () {
-        var opt = {};
+        var opt = {
+            
+        };
         // Tools: export to Excel, CSV, PDF & Print
         if ($(this).hasClass('table-tools')) {
             opt.sDom = "<'row'<'col-md-6'f><'col-md-6'T>r>t<'row'<'col-md-6'i><'spcol-md-6an6'p>>",
             opt.oTableTools = {
                 "sSwfPath": "/assets/plugins/datatables/swf/copy_csv_xls_pdf.swf",
-                "aButtons": ["csv", "xls", "pdf", "print"]
+                "aButtons": ["xls", "pdf", "print"]
             };
         }
         if ($(this).hasClass('no-header')) {
@@ -635,41 +633,54 @@ if ($('.table-dynamic').length && $.fn.dataTable) {
             opt.bInfo = false;
             opt.bPaginate = false;
         }
+        opt.language = {
+            "sProcessing":     "Procesando...",
+            "sLengthMenu":     "Mostrar _MENU_ registros",
+            "sZeroRecords":    "No se encontraron resultados",
+            "sEmptyTable":     "Ningún dato disponible en esta tabla",
+            "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix":    "",
+            "sSearch":         "Buscar: ",
+            "sUrl":            "",
+            "sInfoThousands":  ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst":    "Primero",
+                "sLast":     "Último",
+                "sNext":     "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        };
+        opt.language.url = "/backend/assets/plugins/datatables/spanish.lang";
+
         var oTable = $(this).dataTable(opt);
         oTable.fnDraw();
     });
 }
 
 /****  Table progress bar  ****/
-if ($('body').data('page') == 'tables' || $('body').data('page') == 'products' || $('body').data('page') == 'blog') {
+if ($('body').data('page') == 'tables' || $('body').data('page') == 'products') {
     $('.progress-bar').progressbar();
 }
 
 /****  Gallery Images  ****/
 if ($('.gallery').length && $.fn.mixItUp) {
     $('.gallery').each(function () {
-
         $(this).mixItUp({
             animation: {
-                enable: false       
-            },
-            callbacks: {
-                onMixLoad: function(){
-                    $('.mix').hide();
-                    $(this).mixItUp('setOptions', {
-                        animation: {
-                            enable: true,
-                            effects: "fade", 
-                        },
-                    });
-                    $(window).bind("load", function() {
-                       $('.mix').fadeIn();
-                    });
-                }
+                duration: 400,
+                effects: "fade", 
+                queueLimit: 3,
+                /* animateChangeLayout: true,*/
+                animateResizeTargets: true
             }
         });
-
-
     });
 }
 

@@ -1,20 +1,20 @@
 <nav id="sidebar">
     <div id="main-menu">
         <ul class="sidebar-nav">
-            <li class="<?= Request::is('*dashboard') ? 'current' : '' ?>">
-                <a href="/dashboard"><i class="fa fa-dashboard"></i><span class="sidebar-text">Dashboard</span></a>
+            <li class="<?= Request::is('/') ? 'current' : '' ?>">
+                <a href="/"><i class="fa fa-dashboard"></i><span class="sidebar-text">Dashboard</span></a>
             </li>
-            <li class="<?= Request::is('*landing*') ? 'current' : '' ?>">
-                <a href="/dashboard/landing"><i class="glyph-icon flaticon-panels"></i><span class="sidebar-text">Landings</span></a>
+            <li class="<?= Request::is('*libros*') ? 'current' : '' ?>">
+                <a href="/libros"><i class="fa fa-book"></i><span class="sidebar-text">Libros</span></a>
             </li>
 
-            <li class="<?= Request::is('*prospect*') ? 'current' : '' ?>">
-                <a href="/dashboard/prospect"><i class="fa fa-user"></i><span class="sidebar-text">Prospectos</span></a>
+            <li class="<?= Request::is('*estudiantes*') ? 'current' : '' ?>">
+                <a href="/estudiantes"><i class="fa fa-user"></i><span class="sidebar-text">Estudiantes</span></a>
             </li> 
 
 
-            <li class="<?= Request::is('*profile*') ? 'current' : '' ?>">
-                <a href="/dashboard/profile"><i class="glyph-icon flaticon-account"></i><span class="sidebar-text">Mi perfil</span></a>
+            <li class="<?= Request::is('*prestamos*') ? 'current' : '' ?>">
+                <a href="/prestamos"><i class="fa fa-edit"></i><span class="sidebar-text">Prestamos</span></a>
             </li> 
 
 

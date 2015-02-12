@@ -18,7 +18,7 @@ class CreateLandingsTable extends Migration {
 		    $table->string('name');
 		    $table->string('author');
 		    $table->string('code');		    
-		    $table->enum('status', ['enabled', 'disabled'])->default('disabled');		   
+		    $table->enum('status', ['available', 'unavailable'])->default('available');		   
 		    $table->timestamps();
 		});
 	}

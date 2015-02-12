@@ -1,6 +1,6 @@
 <?php
 
-class ProspectController extends BaseController {
+class BookController extends BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -10,13 +10,9 @@ class ProspectController extends BaseController {
 	 */        
 	public function index()
 	{
-		if(Input::has('ref') && Input::get('ref') == 'notify'){
-			$n = Notification::unread()->find((int) Input::get('n'));
-			$n->read();			
-		}
+		$books = Book::all();
 
-		$prospects = Prospect::current()->get();
-		return View::make('backend.prospects.index', compact('prospects'));
+		return View::make('backend.books.index', compact('books'));
 	}
 
 	/**
@@ -27,7 +23,7 @@ class ProspectController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('backend.landings.create');
+		return View::make('backend.books.create');
 	}
 
 	/**
@@ -40,16 +36,14 @@ class ProspectController extends BaseController {
 	{
 		$inputs = Input::all();
 		//$inputs['template_id'] = 1;
-		$inputs['user_id'] = Auth::user()->id;
 		
 
-		$landing = new Landing($inputs);
-		if ($landing->save())
+		$book = new Book($inputs);
+		if ($book->save())
 		{
-			return Redirect::to('/dashboard/landing')->with('alert', ['type' => 'success', 'message' => 'El landing ha sido guardado.']);;			
+			return Redirect::to('/libros')->with('alert', ['type' => 'success', 'message' => 'El libro ha sido guardado.']);;			
 		}        
-		dd($landing->getErrors());
-        return Redirect::to('/dashboard/landing')->with('alert', ['type' => 'danger', 'message' => 'Ocurrio un error, intenta mas tarde.']);;
+		return Redirect::to('/libros')->with('alert', ['type' => 'danger', 'message' => 'Ocurrio un error, intenta mas tarde.']);;
 
 	}
 

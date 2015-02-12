@@ -34,7 +34,17 @@ Route::get('/auth/logout', ['uses' => 'AuthController@logout']);
 Route::group(['before' => 'auth'], function () {
 
 	if(Auth::user()){
-		require (__DIR__ . '/routes/' . Auth::user()->type . '.php');
+
+		Route::get('/', ['uses' => 'UserController@dashboard']);
+
+		/* Landing */
+		Route::resource('libros', 'BookController');
+
+		Route::resource('estudiantes', 'StudentController');
+		Route::get('/estudiantes/delete/{id}', 'StudentController@destroy');
+		Route::post('/estudiantes/update/{id}', 'StudentController@update');
+
+	
 		require (__DIR__ . '/routes/shared.php');
 	}   
 
