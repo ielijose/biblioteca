@@ -5,7 +5,7 @@ class AuthController extends BaseController {
 	public function showLogin()
 	{
 		if(Auth::user()){
-			return Redirect::to('/dashboard');
+			return Redirect::to('/');
 		}else{
 			return View::make('backend.login');
 		}		
@@ -14,7 +14,7 @@ class AuthController extends BaseController {
 	public function showRegister()
 	{
 		if(Auth::user()){
-			return Redirect::to('/dashboard');
+			return Redirect::to('/');
 		}else{
 			return View::make('backend.register');
 		}		
@@ -23,7 +23,7 @@ class AuthController extends BaseController {
 	public function showForgot()
 	{
 		if(Auth::user()){
-			return Redirect::to('/dashboard');
+			return Redirect::to('/');
 		}else{
 			return View::make('backend.forgot');
 		}		
@@ -51,7 +51,7 @@ class AuthController extends BaseController {
 			);		
 
 			if ($r = Auth::attempt($userdata)) {
-				return Redirect::to('/dashboard');
+				return Redirect::to('/');
 			} else {
 				return Redirect::to('/auth/login')->with('alert', ['type' => 'danger', 'message' => 'Credenciales invalidas']);
 			}
@@ -76,7 +76,7 @@ class AuthController extends BaseController {
 		{
 			$user = User::create($inputs);
 			Auth::loginUsingId($user->id);
-			return Redirect::to('/dashboard/');
+			return Redirect::to('/');
 		}else{
 			return Redirect::back()->withInput()->withErrors($v->messages());
 		}		

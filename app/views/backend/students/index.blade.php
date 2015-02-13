@@ -10,15 +10,17 @@
 
 <div id="main-content">
             <div class="page-title"> <i class="icon-custom-left"></i>
-                <h3><strong>Estudiantes</strong></h3>
+                <h3 class="pull-left"><strong>Estudiantes</strong></h3>
+                <a href="/estudiantes/create" class="btn btn-success pull-right m-t-10">Ingresar estudiante</a>
 
                 @include('backend.layouts.alert')
             </div>
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="panel panel-default">
                         <div class="panel-heading bg-blue">
                             <h3 class="panel-title"><strong>Listado</strong> de estudiantes</h3>
+
                         </div>
                         <div class="panel-body">
                             <div class="row">
@@ -53,81 +55,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading bg-green">
-                            <h3 class="panel-title"><strong>Nuevo</strong> estudiante</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-
-                                    <form action="/estudiantes" method="post" id="student" class="form-horizontal" data-parsley-validate>
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">Nombre:</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" name="name" data-parsley-minlength="1" class="form-control" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">CI:</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" name="ci" data-parsley-minlength="1" class="form-control" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">Sección:</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" name="section" data-parsley-minlength="1" class="form-control" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">Genero:</label>
-                                            <div class="col-sm-9">
-                                                <select name="gender" id="">
-                                                    <option value="male">Masculino</option>
-                                                    <option value="female">Femenino</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">Dirección:</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" name="address" data-parsley-minlength="1" class="form-control" required>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">Télefono:</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" name="phone" data-parsley-minlength="1" class="form-control" required>
-                                            </div>
-                                        </div>
-
-                                        
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">Correo:</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" name="email" data-parsley-minlength="1" class="form-control" required>
-                                            </div>
-                                        </div>
-                                      
-                                        <div class="col-sm-9 col-sm-offset-3">
-                                            <div class="pull-right">
-                                                <button type="submit" class="btn btn-primary m-b-10">Guardar</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
             </div>
         </div>
 

@@ -27,7 +27,7 @@ class StudentController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('backend.landings.create');
+		return View::make('backend.students.create');
 	}
 
 	/**
