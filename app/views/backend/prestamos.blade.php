@@ -103,7 +103,7 @@
 
                         </div>        
                         <div class="modal-footer text-center">
-                            @if((count($student)>0) && (count($books)>0))
+                            @if((count($students)>0) && (count($books)>0))
                             <button type="submit" class="btn btn-success">Guardar</button>
                             @else
                             <h5>No hay estudiantes o libros para realizar un prestamo.</h5>
