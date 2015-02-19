@@ -17,14 +17,25 @@ class UserTableSeeder extends Seeder {
 			));
 
 		User::create(array(
-			'full_name' => 'Administrador',
+			'full_name' => 'Ulises Fernández',
+			'phone' => '+4167614125',
+			'picture' => 'image.jpg',
+			'description' => 'Bio',
+			'email' => 'ulisejavierfernandez@hotmail.es',
+			'password' => \Hash::make('2138'),
+			'username' => 'ulisejavierfernandez',
+			'type' => 'user'
+			));
+
+		User::create(array(
+			'full_name' => 'Mariana Rojas',
 			'phone' => '+58 424 602 9989',
 			'picture' => 'image.jpg',
 			'description' => 'Bio',
-			'email' => 'admin@gmail.com',
-			'password' => \Hash::make('2512'),
-			'username' => 'admin',
-			'type' => 'admin'
+			'email' => 'marianarojasfym@gmail.com',
+			'password' => \Hash::make('25061402'),
+			'username' => 'marianarojasfym',
+			'type' => 'user'
 			));
 
 	}
