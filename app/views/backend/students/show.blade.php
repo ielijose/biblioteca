@@ -29,11 +29,12 @@
         <div class="col-md-12">
             <div class="tabcordion">
                 <ul id="myTab" class="nav nav-tabs">
-                    <li class="active"><a href="#product_general" data-toggle="tab">Datos</a></li>
+                    <li class="active"><a href="#general" data-toggle="tab">Datos</a></li>
+                    <li class=""><a href="#prestamos" data-toggle="tab">Prestamos</a></li>
                    
                 </ul>
                 <div id="myTabContent" class="tab-content">
-                    <div class="tab-pane fade active in" id="product_general">
+                    <div class="tab-pane fade active in" id="general">
                         <div class="row">
                             <div class="col-md-12">
                                 <form action="/estudiantes/update/{{ $student->id }}" method="POST" id="product-update" class="form-horizontal">
@@ -92,6 +93,43 @@
                                         </div>
                                     </div>
                                 </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="tab-pane fade in" id="prestamos">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12 table-responsive table-blue filter-right">
+
+                                <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-hover table-dynamic">
+                                    <thead>
+                                        <tr>                                                
+                                            <th>Libro</th>                                             
+                                            <th>Estado</th>
+                                            <th>Prestado</th>
+                                            <th>Devolver</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($student->prestamos as $key => $prestamo)      
+                                        <tr>
+                                            <td>{{ $prestamo->book->name }}</td>
+                                            <td>{{ $prestamo->getStatus() }}</td>
+                                            <td>{{ $prestamo->getHumanDate() }}</td>
+                                            <td>
+                                                @if($prestamo->status == 'on')
+                                                <a href="/devolver/{{ $prestamo->id }}" class="btn btn-info">Devolver</a>
+                                                @else
+                                                {{ $prestamo->getHumanDate('updated_at') }}
+                                                @endif
+
+                                            </td>
+                                        </tr>
+                                        @endforeach                                           
+
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

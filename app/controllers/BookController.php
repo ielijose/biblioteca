@@ -56,8 +56,8 @@ class BookController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$property = Landing::findOrFail($id);
-		return View::make('backend.landings.show', compact('property'));
+		$book = Book::findOrFail($id);
+		return View::make('backend.books.show', compact('book'));
 	}
 
 	/**
@@ -83,14 +83,13 @@ class BookController extends BaseController {
 	public function update($id)
 	{
 		$inputs = Input::all();
-		$property = Property::findOrFail($id);
-		$property->fill($inputs);
-		if ($property->save())
+		$book = Book::findOrFail($id);
+		$book->fill($inputs);
+		if ($book->save())
 		{
-			return Redirect::to('/property/' . $id)->with('alert', ['type' => 'success', 'message' => 'Datos guardados.']);			
+			return Redirect::to('/libros/' . $id)->with('alert', ['type' => 'success', 'message' => 'Datos guardados.']);			
 		}        
-		dd($property->getErrors());
-        return Redirect::to('/property/' . $id)->with('alert', ['type' => 'danger', 'message' => 'Ocurrio un error, intenta mas tarde.']);
+        return Redirect::to('/libros/' . $id)->with('alert', ['type' => 'danger', 'message' => 'Ocurrio un error, intenta mas tarde.']);
 	}
 
 	/**
@@ -102,78 +101,8 @@ class BookController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		Property::destroy($id);
-		return Redirect::to('/property')->with('alert', ['type' => 'success', 'message' => 'El inmueble ha sido borrado.']);
+		Book::destroy($id);
+		return Redirect::to('/libros')->with('alert', ['type' => 'success', 'message' => 'El libro ha sido borrado.']);
 	}
 
-	public function add_image()
-	{
-
-		$file = Input::file('file');
-        $destinationPath = public_path() . '/uploads/landings/';
-        $filename = str_random(16)."_".$file->getClientOriginalName();
-        $upload_success = Input::file('file')->move($destinationPath, $filename);
-
-        if ($upload_success) {
-            $property = '/uploads/landings/' . $filename;
-
-            Session::put('property', $property);
-            $response = ['property' => $property, 'success' => 200];
-
-            return Response::json($response);
-        } else {
-            return Response::json('error', 400);
-        }
-	}
-
-
-	/* Imagen */
-
-	# Imagen Upload
-    public function post_image($id)
-    {
-    	$property = Property::findOrFail($id);
-    	if($property){
-    		$file = Input::file('file');
-	        $destinationPath = public_path() . '/uploads/landings/';
-	        $filename = str_random(16)."_".$file->getClientOriginalName();
-	        $upload_success = Input::file('file')->move($destinationPath, $filename);
-
-	        if ($upload_success) {
-	            $image = '/uploads/landings/' . $filename;
-
-	            if(File::exists( public_path() . $property->image )){
-	            	Croppa::delete($property->image);
-	            }
-
-	            $property->image = $image;
-	            $property->save();
-
-	            $response = ['image' => $image, 'success' => 200];
-
-	            return Response::json($response);
-	        } else {
-	            return Response::json('error', 400);
-	        }
-    	}
-        
-    }
-    
-    # Get Imagen
-    public function get_image($id)
-    {
-    	$property = Property::findOrFail($id);
-    	if($property){
-        	return Response::json(['image' => $property->image]);
-    	}
-                
-    }
-
-    public function api_index()
-    {
-    	$property = Property::all();
-		return $property->toJson();
-    }
-
-    
 }

@@ -19,7 +19,12 @@ class Book extends Model {
         'author.required' => 'Campo obligatorio.',
 	];
   
-    /* Scopes */   
+    /* Scopes */ 
+
+    public function scopeAvailables($query)
+    {
+        return $query->where('status', 'available');
+    }  
     
     /* Relationships */ 
 
@@ -41,4 +46,17 @@ class Book extends Model {
                 break;
         }
     }
+
+    public function prestar()
+    {
+        $this->status = 'unavailable';
+        return $this->save();
+    }
+
+    public function devolver()
+    {
+        $this->status = 'available';
+        return $this->save();
+    }
+
 }

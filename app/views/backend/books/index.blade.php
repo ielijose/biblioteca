@@ -7,15 +7,15 @@
 @stop
 
 @section('content')
-
 <div id="main-content">
-            <div class="page-title"> <i class="icon-custom-left"></i>
-                <h3><strong>Listado</strong> de libros</h3>
 
-                @include('backend.layouts.alert')
-            </div>
+    @include('backend.layouts.alert')
+    <div class="page-title"> <i class="icon-custom-left"></i>
+        <h3 class="pull-left"><strong>Libros</strong></h3>
+        <a href="/libros/create" class="btn btn-success pull-right m-t-10">Ingresar libro</a>
+    </div>
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="panel panel-default">
                         <div class="panel-heading bg-blue">
                             <h3 class="panel-title"><strong>Listado</strong> de libros</h3>
@@ -24,14 +24,14 @@
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 col-xs-12 table-responsive table-blue filter-right">
 
-                                    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-hover table-dynamic">
+                                    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-hover table-dynamic no-sort">
                                         <thead>
                                             <tr>
                                                 <th>Título</th>
                                                 <th>Autor</th>                                                
                                                 <th>Código</th>
                                                 <th>Status</th>
-                                                {{--<th>Acciones</th>--}}
+                                                <th>Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -41,7 +41,7 @@
                                                 <td>{{ $book->author }}</td>
                                                 <td>{{ $book->code }}</td>
                                                 <td> {{ $book->getStatus(); }} </td>
-                                               {{-- <td><a href="/libros/{{ $book->id }}" class="btn btn-info">Ver mas</a></td>--}}
+                                                <td><a href="/libros/{{ $book->id }}" class="btn btn-info">Ver mas</a></td>
                                             </tr>
                                             @endforeach                                           
                                             
@@ -52,47 +52,7 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="col-md-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading bg-green">
-                            <h3 class="panel-title"><strong>Ingresar</strong> libro</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-
-                                    <form action="/libros" method="post" id="book" class="form-horizontal" data-parsley-validate>
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">Título:</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" name="name" data-parsley-minlength="1" class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">Autor: </label>
-                                            <div class="col-sm-9">
-                                                <input type="text" name="author" data-parsley-minlength="1" class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">Código:</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" name="code" class="form-control">
-                                            </div>
-                                        </div>
-                                      
-                                        <div class="col-sm-9 col-sm-offset-3">
-                                            <div class="pull-right">
-                                                <button type="submit" class="btn btn-primary m-b-10">Guardar</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
 

@@ -39,10 +39,20 @@ Route::group(['before' => 'auth'], function () {
 
 		/* Landing */
 		Route::resource('libros', 'BookController');
+		Route::get('/libros/delete/{id}', 'BookController@destroy');
+		Route::post('/libros/update/{id}', 'BookController@update');
 
 		Route::resource('estudiantes', 'StudentController');
 		Route::get('/estudiantes/delete/{id}', 'StudentController@destroy');
 		Route::post('/estudiantes/update/{id}', 'StudentController@update');
+
+
+
+		Route::get('/prestamos', 'StudentController@prestamos');
+
+		Route::post('/prestar', 'StudentController@prestar');
+
+		Route::get('/devolver/{id}', 'StudentController@devolver');
 
 	
 		require (__DIR__ . '/routes/shared.php');

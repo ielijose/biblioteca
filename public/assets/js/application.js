@@ -617,6 +617,10 @@ if ($('.table-dynamic').length && $.fn.dataTable) {
         var opt = {
             
         };
+
+        if($(this).hasClass('no-sort')){
+            opt.bSort = false;
+        }
         // Tools: export to Excel, CSV, PDF & Print
         if ($(this).hasClass('table-tools')) {
             opt.sDom = "<'row'<'col-md-6'f><'col-md-6'T>r>t<'row'<'col-md-6'i><'spcol-md-6an6'p>>",

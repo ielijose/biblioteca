@@ -104,6 +104,39 @@ class StudentController extends BaseController {
 		return Redirect::to('/estudiantes')->with('alert', ['type' => 'success', 'message' => 'El estudiante ha sido borrado.']);
 	}
 
+
+
+	public function prestamos()
+	{		
+		$prestamos = Prestamo::orderBy('id', 'DESC')->get();
+		return View::make('backend.prestamos', compact('prestamos'));
+	}
+
+	public function prestar()
+	{		
+		$inputs = Input::all();
+		$prestamo = new Prestamo($inputs);
+		if ($prestamo->save())
+		{	
+			$prestamo->book->prestar();
+			return Redirect::to('/prestamos')->with('alert', ['type' => 'success', 'message' => 'El prestamo ha sido guardado.']);
+		}   
+		//dd($prestamo->getErrors());     
+		return Redirect::to('/prestamos')->with('alert', ['type' => 'danger', 'message' => 'Ocurrio un error, intenta mas tarde.']);;
+
+	}
+
+
+
+	public function devolver($id)
+	{		
+		$prestamo = Prestamo::find($id);
+		$prestamo->devolver();
+		if(Input::has('p')){
+			return Redirect::to('/prestamos')->with('alert', ['type' => 'success', 'message' => 'El libro ha sido devuelto.']);
+		}
+		return Redirect::to('/estudiantes/'.$prestamo->student_id)->with('alert', ['type' => 'success', 'message' => 'El libro ha sido devuelto.']);
+	}
 	
     
 }

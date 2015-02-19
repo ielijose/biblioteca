@@ -22,12 +22,10 @@ class Student extends Model {
     /* Scopes */       
     
     /* Relationships */    
-   
+    public function prestamos(){
+        return $this->hasMany('Prestamo', 'student_id', 'id');
+    }
     /* Function */
 
-    public function rents()
-    {
-        return 0;
-    }
     
 }

@@ -2,7 +2,7 @@
     <div id="main-menu">
         <ul class="sidebar-nav">
             <li class="<?= Request::is('/') ? 'current' : '' ?>">
-                <a href="/"><i class="fa fa-dashboard"></i><span class="sidebar-text">Dashboard</span></a>
+                <a href="/"><i class="fa fa-dashboard"></i><span class="sidebar-text">Datos</span></a>
             </li>
             <li class="<?= Request::is('*libros*') ? 'current' : '' ?>">
                 <a href="/libros"><i class="fa fa-book"></i><span class="sidebar-text">Libros</span></a>
